@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Guía Definitiva Minecraft - GluthBlox</title>
+
+<style>
+body{
+margin:0;
+font-family:Arial, Helvetica, sans-serif;
+background:#0f0f0f;
+color:white;
+line-height:1.6;
+}
+
+header{
+background:linear-gradient(90deg,#00aa55,#008844);
+padding:30px;
+text-align:center;
+font-size:28px;
+font-weight:bold;
+}
+
+nav{
+background:#111;
+padding:10px;
+text-align:center;
+}
+
+nav a{
+color:#00ff99;
+margin:0 15px;
+text-decoration:none;
+font-weight:bold;
+}
+
+section{
+padding:40px 20px;
+max-width:1000px;
+margin:auto;
+}
+
+h2{
+color:#00ff99;
+margin-bottom:15px;
+}
+
+.card{
+background:#1a1a1a;
+padding:20px;
+border-radius:12px;
+margin-bottom:20px;
+}
+
+button{
+padding:10px 20px;
+background:#00ff99;
+border:none;
+border-radius:8px;
+cursor:pointer;
+font-weight:bold;
+}
+
+button:hover{
+background:#00cc77;
+}
+
+input, select{
+padding:8px;
+margin:5px 0;
+border-radius:6px;
+border:none;
+}
+
+.barra{
+width:100%;
+height:20px;
+background:#333;
+border-radius:10px;
+overflow:hidden;
+margin-top:10px;
+}
+
+.barra-interna{
+height:100%;
+width:0%;
+background:#00ff99;
+transition:0.5s;
+}
+
+footer{
+background:#000;
+text-align:center;
+padding:20px;
+margin-top:40px;
+}
+
+@media(max-width:600px){
+nav a{display:block;margin:10px 0;}
+}
+</style>
+</head>
+
+<body>
+
+<header>
+Guía Definitiva para Pasarse Minecraft<br>
+GluthBlox Studios
+</header>
+
+<nav>
+<a href="#pasarse">Pasarse el Juego</a>
+<a href="#granjas">Simulador</a>
+<a href="#mods">Mods</a>
+<a href="#instalacion">Instalación</a>
+</nav>
+
+<section id="pasarse">
+<h2>🧱 Cómo Pasarse el Juego</h2>
+
+<div class="card">
+<h3>1️⃣ Primeros días</h3>
+<ul>
+<li>Consigue madera y herramientas.</li>
+<li>Haz refugio antes de la noche.</li>
+<li>Consigue hierro lo antes posible.</li>
+</ul>
+</div>
+
+<div class="card">
+<h3>2️⃣ Nether</h3>
+<ul>
+<li>Haz portal con obsidiana.</li>
+<li>Consigue varas de Blaze.</li>
+<li>Consigue perlas de Enderman.</li>
+</ul>
+</div>
+
+<div class="card">
+<h3>3️⃣ End</h3>
+<ul>
+<li>Activa el portal con Ojos de Ender.</li>
+<li>Destruye los cristales.</li>
+<li>Derrota al Ender Dragon.</li>
+</ul>
+</div>
+</section>
+
+<section id="granjas">
+<h2>⚙️ Simulador Técnico de Granjas</h2>
+
+<div class="card">
+<label>Plataformas:</label><br>
+<input type="number" id="plataformas" value="10"><br>
+
+<label>Superficie válida:</label><br>
+<input type="number" id="superficie" value="256"><br>
+
+<label>Eficiencia (%):</label><br>
+<input type="number" id="eficiencia" value="85"><br><br>
+
+<button onclick="calcular()">Calcular Producción</button>
+
+<p id="resultado"></p>
+
+<div class="barra">
+<div class="barra-interna" id="barra"></div>
+</div>
+</div>
+</section>
+
+<section id="mods">
+<h2>🧩 Mods Recomendados</h2>
+
+<div class="card">
+<label>Selecciona versión:</label><br>
+<select id="version" onchange="mostrarMods()">
+<option value="1.20">1.20</option>
+<option value="1.21">1.21</option>
+</select>
+
+<div id="lista-mods"></div>
+</div>
+</section>
+
+<section id="instalacion">
+<h2>🛠️ Instalación de Mods</h2>
+
+<div class="card">
+<h3>Fabric</h3>
+<ol>
+<li>Descarga Fabric Installer.</li>
+<li>Selecciona versión.</li>
+<li>Instala.</li>
+<li>Coloca mods en carpeta "mods".</li>
+</ol>
+</div>
+
+<div class="card">
+<h3>Forge</h3>
+<ol>
+<li>Descarga Forge Installer.</li>
+<li>Instala cliente.</li>
+<li>Coloca mods en carpeta "mods".</li>
+</ol>
+</div>
+
+<div class="card">
+<h3>Arquitectura Técnica</h3>
+<p>Minecraft → Mod Loader → Sistema de eventos → Mods → Juego modificado</p>
+</div>
+</section>
+
+<footer>
+© 2026 GluthBlox | Guía Técnica Profesional
+</footer>
+
+<script>
+function calcular(){
+let plataformas = parseInt(document.getElementById("plataformas").value);
+let superficie = parseInt(document.getElementById("superficie").value);
+let eficiencia = parseInt(document.getElementById("eficiencia").value)/100;
+
+let ticksHora = 72000;
+let spawnBase = plataformas * superficie * 0.01;
+let mobsHora = Math.floor(spawnBase * ticksHora * eficiencia / 1000);
+
+document.getElementById("resultado").innerHTML =
+"Producción estimada: " + mobsHora + " mobs/hora";
+
+let porcentaje = Math.min((mobsHora/10000)*100,100);
+document.getElementById("barra").style.width = porcentaje + "%";
+}
+
+function mostrarMods(){
+let v = document.getElementById("version").value;
+let contenido = "";
+
+if(v==="1.20"){
+contenido = `
+<ul>
+<li>Sodium</li>
+<li>Lithium</li>
+<li>Carpet Mod</li>
+<li>MiniHUD</li>
+</ul>`;
+}else{
+contenido = `
+<ul>
+<li>Sodium</li>
+<li>Litematica</li>
+<li>MiniHUD</li>
+<li>Iris Shaders</li>
+</ul>`;
+}
+
+document.getElementById("lista-mods").innerHTML = contenido;
+}
+
+mostrarMods();
+</script>
+
+</body>
+</html>
